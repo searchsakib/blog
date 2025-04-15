@@ -1,0 +1,38 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main class="">
+			<h1>Write anything...</h1>
+			<p>
+				Write blog about your favorite topic and win nothing. Cause giving out price is pricey, and who wants to give something when you can get something for Free!. Lol, jokes apart, write whatever that make you feel like an awesome blog writer.
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+
+	body {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+		margin: 0;
+	}
+	
+	main{
+	flex: 1;
+	}
+	
+</style>

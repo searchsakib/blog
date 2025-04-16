@@ -33,7 +33,7 @@ const posts = await client.fetch<BlogPost[]>(`*[_type == "blogPost" && isPublish
   tags,
   "createdAt": coalesce(createdAt, _createdAt)
 }`);
-console.log('Fetched posts:', posts);
+// console.log('Fetched posts:', posts);
 ---
 
 <!doctype html>
@@ -138,7 +138,9 @@ console.log('Fetched posts:', posts);
 
 <style>
 
-section {
+
+
+section{
 	display: flex;
 }
 	.card {

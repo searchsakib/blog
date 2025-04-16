@@ -8,9 +8,34 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
 <!doctype html>
-<html lang="en">
+<source lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			html, body {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				display: flex;
+				flex-direction: column;
+				min-height: 100vh;
+			}
+			main {
+				flex: 1 0 auto;
+			}
+			.hero-video {
+				width: 100%;
+				max-width: 800px;
+				margin: 1px auto;
+				display: block;
+				border-radius: 8px;
+			}
+			h2 {
+				padding-top: 25px;
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
@@ -26,33 +51,4 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		</main>
 		<Footer />
 	</body>
-</html>
-
-<style>
-
-	body {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-		margin: 0;
-	}
-	
-	main{
-	flex: 1;
-	}
-
-	.a-tag{
-		text-decoration: none;
-	}
-	
-	.hero-video {
-		width: 100%;
-		max-width: 800px;
-		margin: 1px auto;
-		display: block;
-		border-radius: 8px;
-	}
-	h2 {
-		padding-top: 25px;
-	}
-</style>
+</source>

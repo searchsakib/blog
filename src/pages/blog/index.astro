@@ -41,8 +41,23 @@ const posts = await client.fetch<BlogPost[]>(`*[_type == "blogPost" && isPublish
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
+			/* Page wrapper styles */
+			html, body {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				display: flex;
+				flex-direction: column;
+				min-height: 100vh;
+			}
 			main {
-				width: 960px;
+				flex: 1;
+				width: 100%;
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 0 1rem;
 			}
 			ul {
 				display: flex;
@@ -137,7 +152,9 @@ const posts = await client.fetch<BlogPost[]>(`*[_type == "blogPost" && isPublish
 
 
 <style>
+/* Make sure section takes available space */
 section {
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;

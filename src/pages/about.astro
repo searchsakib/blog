@@ -9,13 +9,25 @@ import Layout from '../layouts/BlogPost.astro';
 
 >
 
+	<div>
+	 <main>
 	<h4>Codda</h4>
 	<p class="sub">Frontend Web Developer</p>
 	<p>
 		Codda is a frontend web dev who speaks fluent HTML, sprinkles CSS like seasoning, and wrestles JavaScript bugs before breakfast. If it loads fast and looks good, chances are Codda had something to do with it.
 	</p>
+		</main>
+	</div>
 </Layout>
 
 <style>
+	div {
+		display: flex;
+		flex-direction: column;
+		min-height: 50vh;
+	}
 
+	main {
+		flex: 1;
+	}
 </style>

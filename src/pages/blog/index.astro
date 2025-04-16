@@ -137,24 +137,50 @@ const posts = await client.fetch<BlogPost[]>(`*[_type == "blogPost" && isPublish
 
 
 <style>
-
-
-
-section{
-	display: flex;
+section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
 }
-	.card {
-		background-color: #d3c8ff15;
-		border: 3px solid #1F1D28;
-		border-radius: 10px;
-		padding: 20px;
-		margin: 20px;
-	}
-	.a-tag {
-		text-decoration: none;
-		color: black;
-	}
-	.link {
-		color: blue;
-	}
+
+.card {
+    background-color: #d3c8ff15;
+    border: 3px solid #1F1D28;
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.a-tag {
+    text-decoration: none;
+    color: black;
+}
+
+.link {
+    color: var(--accent);
+}
+
+@media (max-width: 480px) {
+    section {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+    
+    .card {
+        padding: 15px;
+    }
+}
 </style>

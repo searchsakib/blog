@@ -1,21 +1,57 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
-import { render } from 'astro:content';
+import { client,urlFor } from '../../sanity/client';
+import { toHTML } from '@portabletext/to-html';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
+  const posts = await client.fetch(`
+    *[_type == "blogPost"] {
+      "params": {
+        "slug": slug.current
+      }
+    }
+  `);
+  return posts;
 }
-type Props = CollectionEntry<'blog'>;
 
-const post = Astro.props;
-const { Content } = await render(post);
+const { slug } = Astro.params;
+
+const post = await client.fetch(`
+  *[_type == "blogPost" && slug.current == $slug][0] {
+    title,
+    content,
+    author,
+    coverImage,
+    "createdAt": coalesce(createdAt, _createdAt),
+    category,
+    tags
+  }
+`, { slug });
+
+if (!post) {
+  return Astro.redirect('/404');
+}
+
+const htmlContent = toHTML(post.content);
 ---
 
-<BlogPost {...post.data}>
-	<Content />
+<BlogPost {...post}>
+  <img src={urlFor(post.coverImage).width(800).url()} />
+  {post.tags.map((tag)=> <span class="tags">{tag}</span>)}
+
+  <div class="category">
+    Category: {post.category}
+  </div>
+  <div>Author: {post.author}</div>
+  <div set:html={htmlContent}></div>
 </BlogPost>
+
+<style>
+  .tags{
+    padding: 1px 20px;
+    margin: 20px 5px;
+    border-radius: 7px;
+    background-color: rgb(221, 221, 138);
+    
+  }
+</style>

@@ -3,12 +3,37 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
-import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
+import { client,urlFor } from '../../sanity/client';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+
+interface BlogPost {
+  title: string;
+  slug: { current: string; _type: string };
+  author: string;
+  coverImage: {
+    hotspot: any;
+    _type: string;
+    asset: any;
+    crop: any;
+  };
+  excerpt: string;
+  category: string;
+  tags: string[];
+  createdAt: string;
+}
+
+// Add console.log to debug the posts data
+const posts = await client.fetch<BlogPost[]>(`*[_type == "blogPost" && isPublished == true] | order(coalesce(createdAt, _createdAt) desc) {
+  title,
+  slug,
+  author,
+  coverImage,
+  "excerpt": array::join(string::split(pt::text(content[0...2]), "")[0...100], "") + "...",
+  category,
+  tags,
+  "createdAt": coalesce(createdAt, _createdAt)
+}`);
+console.log('Fetched posts:', posts);
 ---
 
 <!doctype html>
@@ -89,23 +114,45 @@ const posts = (await getCollection('blog')).sort(
 		<Header />
 		<main>
 			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<img width={720} height={360} src={post.data.heroImage} alt="" />
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
+				{posts.map((post: BlogPost) => (
+					<div class="card">
+						<a class="a-tag" href={`/blog/${post.slug.current}`} class="post-link">
+
+							<img src={urlFor(post.coverImage).width(500).url()} />
+							<h5>
+								{post.title}
+							</h5>
+							<p>
+								{post.excerpt}
+							</p>
+							<p class="link">see more...</p>
+						</a>
+					</div>
+				))}
 			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+
+<style>
+
+section {
+	display: flex;
+}
+	.card {
+		background-color: #d3c8ff15;
+		border: 3px solid #1F1D28;
+		border-radius: 10px;
+		padding: 20px;
+		margin: 20px;
+	}
+	.a-tag {
+		text-decoration: none;
+		color: black;
+	}
+	.link {
+		color: blue;
+	}
+</style>

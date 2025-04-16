@@ -3,6 +3,8 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+
 ---
 
 <!doctype html>
@@ -13,9 +15,13 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	<body>
 		<Header />
 		<main class="">
-			<h1>Write anything...</h1>
-			<p>
-				Write blog about your favorite topic and win nothing. Cause giving out price is pricey, and who wants to give something when you can get something for Free!. Lol, jokes apart, write whatever that make you feel like an awesome blog writer.
+			<video autoplay muted loop class="hero-video">
+				<source src="/typing.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video>
+			<h2>Write anything...</h2>
+			<p class="text">
+				Write blogs about your favorite topics and win... nothing! Cause giving out prizes is pricey. Lol, jokes apart, write whatever makes you feel like an awesome blog writer , Or not, who cares.
 			</p>
 		</main>
 		<Footer />
@@ -34,5 +40,19 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	main{
 	flex: 1;
 	}
+
+	.a-tag{
+		text-decoration: none;
+	}
 	
+	.hero-video {
+		width: 100%;
+		max-width: 800px;
+		margin: 1px auto;
+		display: block;
+		border-radius: 8px;
+	}
+	h2 {
+		padding-top: 25px;
+	}
 </style>

@@ -57,7 +57,7 @@ const posts = await client.fetch<BlogPost[]>(`*[_type == "blogPost" && isPublish
 				width: 100%;
 				max-width: 1200px;
 				margin: 0 auto;
-				padding: 0 1rem;
+				padding: 50px 0;
 			}
 			ul {
 				display: flex;
@@ -156,15 +156,15 @@ const posts = await client.fetch<BlogPost[]>(`*[_type == "blogPost" && isPublish
 section {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 2rem;
-    padding: 1rem;
 }
 
 .card {
     background-color: #d3c8ff15;
     border: 3px solid #1F1D28;
     border-radius: 10px;
+		/* margin: 40px 24px; */
     padding: 20px;
     transition: transform 0.2s ease;
 }
@@ -189,15 +189,32 @@ section {
     color: var(--accent);
 }
 
-@media (max-width: 480px) {
-    section {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        padding: 0.5rem;
-    }
-    
-    .card {
-        padding: 15px;
-    }
+
+
+
+@media (max-width: 769px) {
+
+	
+  section {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .card {
+    padding: 20px;
+  }
 }
+
+@media (max-width: 480px) {
+		section {
+			grid-template-columns: 1fr;
+			gap: 1rem;
+		}
+		
+		.card {
+				padding: 15px;
+				margin: 0 20px;
+		}
+}
+
+
 </style>
